@@ -1,0 +1,135 @@
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Recursive">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="profile-styles.css">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+		<link href="images/logo-bg-removed.png" rel="icon" type="image/x-icon" />
+
+		<title>LeetFeed - Home</title>
+	</head>
+
+	<body>
+
+		<div class="vert-navbar">
+			<ul class="vert-navbar-ul">
+				<a href="home.html"><li><center>
+					<img src="images/home.png" width=40 height=40 />
+					<br>Home</center>
+				</li></a>
+				<a href="#"><li><center>
+					<img src="images/profile.png" width=40 height=40 />
+					<br>Profile</center>
+				</li></a>
+				<a href="groups.html"><li><center>
+					<img src="images/groups.png" width=40 height=40 />
+					<br>Groups</center>
+				</li></a>
+				<a href="messages.html"><li><center>
+					<img src="images/home.png" width=40 height=40 />
+					<br>Messages</center>
+				</li></a>
+				<a href="schedules.html"><li><center>
+					<img src="images/schedules.png" width=40 height=40 />
+					<br>Schedules</center>
+				</li></a>
+				<a onclick="logOut()"><li><center>
+					<img src="images/logout.svg" width=40 height=40 />
+					<br>Log Out</center>
+				</li></a>
+			</ul>
+		</div>
+
+		<div class="non-navbar-area">
+		</div>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+		     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+
+		<script type="text/javascript">
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDX61EOAYNnGJoT19HD_F0kErwPa-YgrUY",
+				authDomain: "leet-feed.firebaseapp.com",
+				databaseURL: "https://leet-feed.firebaseio.com",
+				projectId: "leet-feed",
+				storageBucket: "leet-feed.appspot.com",
+				messagingSenderId: "382333298360",
+				appId: "1:382333298360:web:73ae197a7a54565336764d",
+				measurementId: "G-BYXL5FM7VM"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+
+			var thisUserID = sessionStorage.getItem('userid');
+			console.log("user id: "+thisUserID);
+
+			if (thisUserID === undefined){
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						// User is signed in.
+						sessionStorage.setItem('userid',user.uid);
+						console.log("Stored user ID: "+sessionStorage.getItem('userid'));
+						thisUserID = user.uid;
+					} else {
+						// No user is signed in.
+						alert('No user is signed in.');
+						window.location = "index.html";
+					}
+				});
+			}
+
+			// initialize database
+			var dbRef = firebase.database().ref();
+
+			var hash = location.hash.substr(1);
+
+			if (!dbRef.child('groups').hasChild(hash)){
+				alert('Invalid group ID.');
+				window.location = "home.html";
+			}
+
+			// add current user to group
+			dbRef.child('groups').child(hash).child('members').child(thisUserID).set("");
+			dbRef.child('users').child(thisUserID).child('groups').child(hash).set("");
+
+			alert('Successfully joined group.');
+			window.location = "groups.html";
+
+			function logOut(){
+				firebase.auth().signOut().then(function() {
+					// Sign-out successful.
+					window.location = 'index.html';
+				}, function(error) {
+					// An error happened.
+					alert("Log out failed.");
+				});
+			}
+		</script>
+	</body>
+</html>

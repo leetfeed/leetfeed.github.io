@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Recursive">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="profile-styles.css">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+		<link href="images/logo-bg-removed.png" rel="icon" type="image/x-icon" />
+
+		<title>LeetFeed - Profile</title>
+	</head>
+
+	<body>
+
+		<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-expand-xl|lg|md|sm">
+		  <a class="navbar-brand" href="#">LeetFeed</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="#">Feed<span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="profile.html">Profile</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="groups.html">Groups</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="messages.html">Messages</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" onclick="logOut()">Log Out</a>
+		      </li>
+		      
+		    </ul>
+		  </div>
+		</nav>-->
+
+		<div class="top-banner">
+			<img src="images/logo-bg-removed.png" width=70 height=70 />
+		</div>
+
+		<div class="vert-navbar">
+			<ul class="vert-navbar-ul">
+				<a href="home.html"><li><center>
+					<img src="images/home.png" width=40 height=40 />
+					<br>Home</center>
+				</li></a>
+				<a href="#"><li><center>
+					<img src="images/profile.png" width=40 height=40 />
+					<br>Profile</center>
+				</li></a>
+				<a href="groups.html"><li><center>
+					<img src="images/groups.png" width=40 height=40 />
+					<br>Groups</center>
+				</li></a>
+				<a href="messages.html"><li><center>
+					<img src="images/messages.png" width=40 height=40 />
+					<br>Messages</center>
+				</li></a>
+				<a href="schedules.html"><li><center>
+					<img src="images/schedules.png" width=40 height=40 />
+					<br>Schedules</center>
+				</li></a>
+				<a href="settings.html"><li><center>
+					<img src="images/settings.png" width=40 height=40 />
+					<br>Settings</center>
+				</li></a>
+				<a onclick="logOut()"><li><center>
+					<img src="images/logout.svg" width=40 height=40 />
+					<br>Log Out</center>
+				</li></a>
+			</ul>
+		</div>
+
+		<div class="non-navbar-area">
+
+			<!--<div class="pane left"></div>-->
+
+			<div style="width: 65%;" class="overflow-auto pane middle" id="profile">
+
+				<div class="pane-title">
+					<h3>Profile
+					<button onclick="toggleEditProfileMenu()" class="mdc-fab mdc-fab--extended" id="edit-profile-btn">
+						<div class="mdc-fab__ripple"></div>
+						<span class="material-icons mdc-fab__icon">edit</span>
+						<span class="mdc-fab__label">Edit Profile</span>
+					</button>
+					</h3>
+				</div>
+
+				<div id="edit-profile-menu" style="display:none">
+					<div class="lf-post-container">
+						<div class="lf-post">
+
+							<!-- TODO add pfp drag and drop from https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop -->
+							<div id="pfp-edit">
+								<label class="switch">
+									<input type="checkbox" onclick="togglePfpDropZone()">
+									<span class="slider round"></span>
+								</label>
+
+								<span style="color: lemonchiffon; font-family: 'Roboto Condensed'; font-size: 18px;" id="drop-zone-output">CHANGE PROFILE PICTURE</span>
+
+								<div id="pfp-drop-zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" style="display:none">
+									<p>Drag profile picture here</p>
+								</div>
+							</div>
+
+							<br>
+
+							<div id="game-tag-board"></div>
+
+							<input id="add-profile-game" class="new-post-data" type="text" placeholder="Add Game" onkeypress="return addGameToProfile(event)"></input>
+
+							<br>
+
+							<div id="platform-tag-board"></div>
+
+							<input id="add-profile-platform" class="new-post-data" type="text" placeholder="Add Platform" onkeypress="return addPlatformToProfile(event)"></input>
+
+							<br>
+
+							<textarea id="edit-profile-bio" rows="3" placeholder="Bio"></textarea>
+
+							<br>
+
+							<button style="float:right;" onclick="uploadEditedProfile()" class="btn btn-light">Submit</button>
+							<button style="float:right;margin-right:5px;" onclick="closeEditProfileMenu()" class="btn btn-light">Cancel</button>
+
+							<br><br>
+						</div>
+					</div>
+				</div>
+
+				<div id="profile-board"></div>
+
+				<div class="pane-title">
+					<h3>My Posts</h3>
+				</div>
+
+				<div id="profile-posts-board"></div>
+
+			</div>
+
+			<div style="width: 35%;" class="pane right">
+				<div class="pane-title">
+					<h3>Status
+					<button onclick="toggleEditStatusMenu()" class="mdc-fab mdc-fab--extended" id="edit-status-btn">
+						<div class="mdc-fab__ripple"></div>
+						<span class="material-icons mdc-fab__icon">edit</span>
+						<span class="mdc-fab__label">Edit Status</span>
+					</button>
+					</h3>
+				</div>
+
+				<div id="edit-status-menu" style="display:none">
+					<div class="lf-post-container">
+						<div class="lf-post">
+							<label class="switch">
+								<input type="checkbox" onclick="toggleOnlineOutput()">
+								<span class="slider round"></span>
+							</label>
+
+							<span style="color: lemonchiffon; font-family: 'Roboto Condensed'; font-size: 18px;" id="online-output">OFFLINE</span>
+
+							<br>
+
+							<input id="edit-status-game" class="new-post-data" type="text" placeholder="Game"></input>
+							<input id="edit-status-platform" class="new-post-data" type="text" placeholder="Platform"></input>
+
+							<br>
+
+							<button style="float:right;" onclick="uploadEditedStatus()" class="btn btn-light">Submit</button>
+							<button style="float:right;margin-right:5px;" onclick="closeEditStatusMenu()" class="btn btn-light">Cancel</button>
+
+							<br><br>
+						</div>
+					</div>
+				</div>
+
+				<div id="lf-status-board">
+
+				</div>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+		     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-storage.js"></script>
+
+		<!--<script src="loadposts.js"></script>-->
+		<script src="loadprofile.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDX61EOAYNnGJoT19HD_F0kErwPa-YgrUY",
+				authDomain: "leet-feed.firebaseapp.com",
+				databaseURL: "https://leet-feed.firebaseio.com",
+				projectId: "leet-feed",
+				storageBucket: "leet-feed.appspot.com",
+				messagingSenderId: "382333298360",
+				appId: "1:382333298360:web:73ae197a7a54565336764d",
+				measurementId: "G-BYXL5FM7VM"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+
+			// initialize database
+			var dbRef = firebase.database().ref();
+
+			// retrieve user ID
+			var thisUserID = sessionStorage.getItem('userid');
+			console.log("user id: "+thisUserID);
+
+			// initialize storage
+			var storageRef = firebase.storage().ref();
+
+			function loadStatus(){
+				dbRef.child('users').child(thisUserID).once('value',function(snapshot){
+					var userData = {
+						uid: thisUserID,
+						username: snapshot.child('username').val(),
+						status: snapshot.child('status').val(),
+						start: snapshot.child('start').val(),
+						end: snapshot.child('end').val(),
+						game: snapshot.child('game').val(),
+						platform: snapshot.child('platform').val()
+					};
+
+					loadUserStatus(userData, storageRef);
+				});
+			}
+
+			function createPlatformTag(platform){
+				var tag = document.createElement('div');
+				tag.classList.add('platform-tag');
+				var img = document.createElement('img');
+
+				platform = platform.toUpperCase();
+
+				if (platform.includes('XBOX')){
+					img.src = 'images/xbox.png';
+				} else if (platform.includes('ORIGIN')){
+					img.src = 'images/origin.png';
+				} else if (platform.includes('STEAM')){
+					img.src = 'images/steam.png';
+				} else if (platform.includes('PS')){
+					img.src = 'images/psn.png';
+				} else if (platform.includes('Switch')){
+					img.src = 'images/switch.png';
+				} else {
+					img.src = 'images/blank.png';
+				}
+
+				tag.append(img);
+				return tag;
+			}
+
+			function updateEditProfileGameTags(){
+				document.getElementById('game-tag-board').innerHTML = "";
+
+				// TODO hide board if empty, get this to work
+				/*if (dbRef.child('users').child(thisUserID).child('info').child('games').numChildren() == 0){
+					document.getElementById('game-tag-board').style.display = 'none';
+					return;
+				}
+
+				document.getElementById('game-tag-board').style.display = 'block';*/
+				dbRef.child('users').child(thisUserID).child('info').child('games').on('value',function(snapshot){
+					snapshot.forEach(function(game){
+						var gameTitle = game.val().toUpperCase();
+
+						var gameTag = document.createElement('div');
+						gameTag.classList.add('profile-game-tag');
+						var game = document.createElement('p');
+						game.innerHTML = gameTitle;
+						gameTag.append(game);
+
+						gameTag.style.cursor = 'pointer';
+
+						/*gameTag.onmouseover = function(){
+							// change background color to lighter orange
+							gameTag.backgroundColor = '#FFE1AB';
+						}*/
+
+						gameTag.onclick = function(){
+							// remove game from user games
+							// TODO debug, not doing anything
+							game.ref.remove();
+							updateEditProfileGameTags();
+						}
+
+						document.getElementById('game-tag-board').appendChild(gameTag);
+					});
+				});
+			}
+
+			function updateEditProfilePlatformTags(){
+				document.getElementById('platform-tag-board').innerHTML = "";
+
+				// TODO hide board if empty, get this to work
+				/*if (dbRef.child('users').child(thisUserID).child('info').child('games').numChildren() == 0){
+					document.getElementById('platform-tag-board').style.display = 'none';
+					return;
+				}
+
+				document.getElementById('platform-tag-board').style.display = 'block';*/
+				dbRef.child('users').child(thisUserID).child('info').child('platforms').on('value',function(snapshot){
+					snapshot.forEach(function(platform){
+						var platformTitle = platform.val().toUpperCase();
+
+						var platformTag = createPlatformTag(platformTitle);
+						platformTag.style.transform = "skew(0deg)";
+						platformTag.style.width = '32px';
+						platformTag.style.height = '32px';
+						platformTag.style.marginRight = '5px';
+						platformTag.style.float = 'left';
+
+						platformTag.style.cursor = 'pointer';
+
+						/*gameTag.onmouseover = function(){
+							// change background color to lighter orange
+							gameTag.backgroundColor = '#FFE1AB';
+						}*/
+
+						platformTag.onclick = function(){
+							// remove game from user games
+							// TODO debug, not doing anything
+							platform.ref.remove();
+							updateEditProfilePlatformTags();
+						}
+
+						document.getElementById('platform-tag-board').appendChild(platformTag);
+					});
+				});
+			}
+
+			// onload functions, load user profile and status
+			loadStatus();
+			renderProfileFor(thisUserID, dbRef, storageRef);
+			updateEditProfileGameTags();
+			updateEditProfilePlatformTags();
+
+			dbRef.child('users').child(thisUserID).child('bio').on("value",function(snapshot){
+				document.getElementById('edit-profile-bio').innerHTML = snapshot.val();
+			});
+
+			function addGameToProfile(e) {
+				if (e.keyCode == 13) {
+					var newGame = document.getElementById('add-profile-game').value;
+
+					if (newGame === "") return false;
+
+					dbRef.child('users').child(thisUserID).child('info').child('games').push().set(newGame);
+					updateEditProfileGameTags();
+					document.getElementById('add-profile-game').value = "";
+					return false;
+				}
+			}
+
+			function addPlatformToProfile(e) {
+				if (e.keyCode == 13) {
+					var newPlatform = document.getElementById('add-profile-platform').value;
+
+					if (newPlatform === "") return false;
+
+					dbRef.child('users').child(thisUserID).child('info').child('platforms').push().set(newPlatform);
+					updateEditProfilePlatformTags();
+					document.getElementById('add-profile-platform').value = "";
+					return false;
+				}
+			}
+
+			function toggleOnlineOutput(){
+				if (document.getElementById("online-output").innerHTML === "OFFLINE"){
+					document.getElementById("online-output").innerHTML = "ONLINE";
+				} else {
+					document.getElementById("online-output").innerHTML = "OFFLINE";
+				}
+			}
+
+			function togglePfpDropZone(){
+				if (document.getElementById("drop-zone-output").innerHTML === "CHANGE PROFILE PICTURE"){
+					document.getElementById("pfp-drop-zone").style.display = "block";
+					document.getElementById("drop-zone-output").innerHTML = "HIDE PROFILE PICTURE MENU";
+				} else {
+					document.getElementById("pfp-drop-zone").style.display = "none";
+					document.getElementById("drop-zone-output").innerHTML = "CHANGE PROFILE PICTURE";
+				}
+			}
+
+			function openEditStatusMenu(){
+				document.getElementById("edit-status-menu").style.display = "block";
+			}
+
+			function toggleEditStatusMenu(){
+				if (document.getElementById("edit-status-menu").style.display === "none"){
+					document.getElementById("edit-status-menu").style.display = "block";
+				} else {
+					document.getElementById("edit-status-menu").style.display = "none";
+				}
+			}
+
+			function closeEditStatusMenu(){
+				document.getElementById("edit-status-menu").style.display = "none";
+			}
+
+			function uploadEditedStatus(){
+				var status = document.getElementById("online-output").innerHTML;
+				var game = document.getElementById("edit-status-game").value;
+				var platform = document.getElementById("edit-status-platform").value;
+
+				if (game === ""){
+					alert("Game missing, cannot update status.");
+					return;
+				} else if (platform === ""){
+					alert("Platform missing, cannot update status.");
+					return;
+				}
+
+				dbRef.child('users').child(thisUserID).child('status').set(status);
+				dbRef.child('users').child(thisUserID).child('game').set(game);
+				dbRef.child('users').child(thisUserID).child('platform').set(platform);
+
+				var currTime = Math.round((new Date()).getTime() / 1000);
+				if (status === "ONLINE"){
+					dbRef.child('users').child(thisUserID).child('start').set(currTime);
+					dbRef.child('users').child(thisUserID).child('end').set("N/A");
+				} else {
+					dbRef.child('users').child(thisUserID).child('end').set(currTime);
+				}
+
+				alert("Successfully updated status.");
+				closeEditStatusMenu();
+				loadStatus();
+			}
+
+			function openEditProfileMenu(){
+				document.getElementById("edit-profile-menu").style.display = "block";
+			}
+
+			function toggleEditProfileMenu(){
+				if (document.getElementById("edit-profile-menu").style.display === "none"){
+					document.getElementById("edit-profile-menu").style.display = "block";
+				} else {
+					document.getElementById("edit-profile-menu").style.display = "none";
+				}
+			}
+
+			function closeEditProfileMenu(){
+				document.getElementById("edit-profile-menu").style.display = "none";
+			}
+
+			function uploadEditedProfile(){
+				var editedBio = document.getElementById('edit-profile-bio').value;
+				dbRef.child('users').child(thisUserID).child('bio').set(editedBio);
+
+				// TODO add functionality for groups, games, platforms, etc
+
+				alert("Successfully uploaded edited profile!");
+				closeEditProfileMenu();
+				renderProfileFor(thisUserID, dbRef, storageRef);
+			}
+
+			function uploadProfilePicture(file){
+				var pfpRef = storageRef.child('profile_images/'+thisUserID+'.png');
+				pfpRef.put(file).then(function(snapshot) {
+					console.log('Uploaded profile picture.');
+					alert('Successfully uploaded new profile picture.');
+					renderProfileFor(thisUserID, dbRef, storageRef);
+				});
+			}
+
+			function loadProfileFromUserID(){
+				var usernameInput = document.getElementById("userid").value;
+				renderProfileFor(usernameInput, dbRef, storageRef);
+
+				console.log(usernameInput);
+				//window.location = 'profile.html';
+			}
+
+			function dropHandler(ev) {
+				console.log('File(s) dropped');
+
+				// Prevent default behavior (Prevent file from being opened)
+				ev.preventDefault();
+
+				// if items accessible by DataTransferItemList is not null
+				if (ev.dataTransfer.items) {
+
+					// Use DataTransferItemList interface to access the file(s
+					// If dropped items aren't files, reject them
+					if (ev.dataTransfer.items[0].kind === 'file') {
+						var file = ev.dataTransfer.items[0].getAsFile();
+						uploadProfilePicture(file);
+					}
+
+				} else {
+					// Use DataTransfer interface to access the file(s)
+					for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+						console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+					}
+				}
+			}
+
+			function dragOverHandler(ev) {
+				console.log('File(s) in drop zone'); 
+
+				// Prevent default behavior (Prevent file from being opened)
+				ev.preventDefault();
+			}
+
+			function logOut(){
+				firebase.auth().signOut().then(function() {
+					// Sign-out successful.
+					window.location = 'index.html';
+				}, function(error) {
+					// An error happened.
+					alert("Log out failed.");
+				});
+			}
+		</script>
+	</body>
+
+</html>

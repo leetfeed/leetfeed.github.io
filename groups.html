@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Recursive">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="profile-styles.css">
+		<link rel="stylesheet" href="group-styles.css">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+		<link href="images/logo-bg-removed.png" rel="icon" type="image/x-icon" />
+
+		<title>Groups - LeetFeed</title>
+	</head>
+
+	<body>
+
+		<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-expand-xl|lg|md|sm">
+		  <a class="navbar-brand" href="#">LeetFeed</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="#">Feed<span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="profile.html">Profile</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="groups.html">Groups</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="messages.html">Messages</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" onclick="logOut()">Log Out</a>
+		      </li>
+		      
+		    </ul>
+		  </div>
+		</nav>-->
+
+		<div class="top-banner">
+			<img src="images/logo-bg-removed.png" width=70 height=70 />
+		</div>
+
+		<div class="vert-navbar">
+			<ul class="vert-navbar-ul">
+				<a href="home.html"><li><center>
+					<img src="images/home.png" width=40 height=40 />
+					<br>Home</center>
+				</li></a>
+				<a href="profile.html"><li><center>
+					<img src="images/profile.png" width=40 height=40 />
+					<br>Profile</center>
+				</li></a>
+				<a href="#"><li><center>
+					<img src="images/groups.png" width=40 height=40 />
+					<br>Groups</center>
+				</li></a>
+				<a href="messages.html"><li><center>
+					<img src="images/messages.png" width=40 height=40 />
+					<br>Messages</center>
+				</li></a>
+				<a href="schedules.html"><li><center>
+					<img src="images/schedules.png" width=40 height=40 />
+					<br>Schedules</center>
+				</li></a>
+				<a href="settings.html"><li><center>
+					<img src="images/settings.png" width=40 height=40 />
+					<br>Settings</center>
+				</li></a>
+				<a onclick="logOut()"><li><center>
+					<img src="images/logout.svg" width=40 height=40 />
+					<br>Log Out</center>
+				</li></a>
+			</ul>
+		</div>
+
+		<div class="non-navbar-area">
+
+			<div class="pane left" id>
+				<div class="pane-title"><h3>My Groups</h3></div>
+
+				<div id="lf-group-board">
+
+				</div>
+			</div>
+
+			<div style="width: 75%" class="overflow-auto pane middle" id="current-group">
+				<div class="pane-title"><h3>Group</h3></div>
+
+				<div class="pane left" id="messages">
+					<div id="lf-message-board">
+
+					</div>
+
+					<div style='display:none' id="send-message">
+						<input id="send-message-input" type="text" placeholder="Send Message..." onkeypress="return sendMessageByEnter(event)">
+						<button onclick="sendMessage()" class="mdc-fab" id="edit-profile-btn">
+							<div class="mdc-fab__ripple"></div>
+							<span class="material-icons mdc-fab__icon">send</span>
+						</button>
+					</div>
+				</div>
+
+				<div class="pane right" id="members">
+					<div class="pane-title">
+						<h3>Members</h3>
+					</div>
+
+					<!--<div id="edit-status-menu" style="display:none">
+						<div class="lf-post-container">
+							<div class="lf-post">
+								<label class="switch">
+									<input type="checkbox" onclick="toggleOnlineOutput()">
+									<span class="slider round"></span>
+								</label>
+
+								<span style="color: lemonchiffon; font-family: 'Roboto Condensed'; font-size: 18px;" id="online-output">OFFLINE</span>
+
+								<br>
+
+								<input id="edit-status-game" class="new-post-data" type="text" placeholder="Game"></input>
+								<input id="edit-status-platform" class="new-post-data" type="text" placeholder="Platform"></input>
+
+								<br>
+
+								<button style="float:right;" onclick="uploadEditedStatus()" class="btn btn-light">Submit</button>
+								<button style="float:right;margin-right:5px;" onclick="closeEditStatusMenu()" class="btn btn-light">Cancel</button>
+
+								<br><br>
+							</div>
+						</div>
+					</div>-->
+
+					<div id="lf-status-board">
+
+					</div>
+
+					<div id="group-calls">
+						<div class="pane-title">
+							<h3>Calls</h3>
+
+							<button onclick="toggleCallMenu()" class="mdc-fab" id="create-call-btn">
+								<div class="mdc-fab__ripple"></div>
+								<span class="material-icons mdc-fab__icon">add</span>
+							</button>
+						</div>
+
+						<div id="new-call-menu" class="friend-status" style="display: none;">
+							<input id="new-call-name" type="text" placeholder="Call Name">
+
+							<br>
+
+							<input id="new-call-game" class="new-post-data" type="text" placeholder="Game"></input>
+							<input id="new-call-platform" class="new-post-data" type="text" placeholder="Platform"></input>
+
+							<br>
+
+							<button style="float:right;" onclick="startNewCall()" class="btn btn-light">Submit</button>
+							<button style="float:right;margin-right:5px;" onclick="toggleCallMenu()" class="btn btn-light">Cancel</button>
+
+						</div>
+
+						<div id="group-calls-board">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--<div class="pane right" id="friends"></div>-->
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+		     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-storage.js"></script>
+
+		<script src="voice-chat/web-rtc-app/simplepeer.min.js"></script>
+
+		<script src="loadposts.js"></script>
+		<script src="loadprofile.js"></script>
+		<script src="loadgroups.js"></script>
+
+		<script type="text/javascript">
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDX61EOAYNnGJoT19HD_F0kErwPa-YgrUY",
+				authDomain: "leet-feed.firebaseapp.com",
+				databaseURL: "https://leet-feed.firebaseio.com",
+				projectId: "leet-feed",
+				storageBucket: "leet-feed.appspot.com",
+				messagingSenderId: "382333298360",
+				appId: "1:382333298360:web:73ae197a7a54565336764d",
+				measurementId: "G-BYXL5FM7VM"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+
+			// initialize database
+			var dbRef = firebase.database().ref();
+
+			// retrieve user ID
+			var thisUserID = sessionStorage.getItem('userid');
+			console.log("user id: "+thisUserID);
+
+			var thisUserName = "";
+			if (thisUserID !== undefined){
+				dbRef.child('users').child(thisUserID).child('username').once("value",function(snapshot){
+					thisUserName = snapshot.val();
+				});
+			}
+
+			// initialize storage
+			var storageRef = firebase.storage().ref();
+
+			async function isOnline(uid){
+				dbRef.child('users').child(uid).child('status').on('value',function(snapshot){
+					return (snapshot.val().toUpperCase() === 'ONLINE');
+				});
+			}
+
+			function toggleCallMenu(){
+				if (document.getElementById("new-call-menu").style.display === "none"){
+					document.getElementById("new-call-menu").style.display = "block";
+				} else {
+					document.getElementById("new-call-menu").style.display = "none";
+				}
+			}
+
+			function startNewCall(){
+
+				var name = document.getElementById("new-call-name").value;
+				var game = document.getElementById("new-call-game").value;
+				var platform = document.getElementById("new-call-platform").value;
+
+				if (name === "" || game === "" || platform === ""){
+					alert("You must enter a value for all fields.");
+					return;
+				}
+
+				var groupId = sessionStorage.getItem('groupid');
+				var newCallRef = dbRef.child("groups").child(groupId).child("call-data").push();
+				var callId = newCallRef.key;
+
+				newCallRef.set({
+					game: game,
+					name: name,
+					platform: platform
+				});
+
+				// generate offer, link audio stream to call
+				onStartCall(dbRef,groupId,thisUserID,callId);
+
+			}
+
+			function addProfilePictureToGroup(id, groupCard){
+				var pfpImg = document.createElement('img');
+				pfpImg.classList.add('pfp-img');
+
+				storageRef.child('group_images/'+id+'.png').getDownloadURL().then(function(url) {
+					console.log(url);
+					if (url !== undefined){
+						console.log('Group profile picture URL: '+url);
+						pfpImg.src = url;
+					} else {
+						console.log('Group profile picture retrieval returned undefined.');
+						pfpImg.src = 'images/logo-bg-removed.png';
+					}
+					groupCard.prepend(pfpImg);
+				}).catch(function(error) {
+					console.log('Failed to load group profile picture.');
+					pfpImg.src = 'images/logo-bg-removed.png';
+					groupCard.prepend(pfpImg);
+				});
+			}
+
+			function renderActiveGroup(groupId){
+
+				// log group id
+				sessionStorage.setItem('groupid',groupId);
+				console.log("group id: "+sessionStorage.getItem('groupid'));
+
+				// make send message visible
+				document.getElementById('send-message').style.display = 'block';
+
+				//var arrayOfMsgData = [];
+
+				// load messages in group
+				dbRef.child('groups').child(groupId).child('messages').orderByChild('timestamp').on("value",function(snapshot){
+
+					document.getElementById('lf-message-board').innerHTML = '';
+
+					snapshot.forEach(function(msgChild){
+						var from = msgChild.child('from').val();
+						var fromUser = msgChild.child('fromUser').val();
+						var text = msgChild.child('text').val();
+						var timestamp = msgChild.child('timestamp').val();
+
+						console.log(timestamp);
+
+						//var done = false;
+
+						//dbRef.child('users').child(from).once("value", function(fromUserSnapshot){
+						var msgData = {
+							from: from,
+							fromUser: fromUser,
+							text: text,
+							timestamp: timestamp,
+							out: (from === thisUserID)
+						};
+						//arrayOfMsgData.push(msgData);
+						addTextMessageToDOM(msgData,storageRef);
+						//done = true;
+						//});
+					});
+				});
+
+				// load statuses for every member in group
+				dbRef.child('groups').child(groupId).child('members').on("value",function(snapshot){
+
+					document.getElementById('lf-status-board').innerHTML = '';
+					snapshot.forEach(function(memberChild){
+						var member = memberChild.key;
+
+						if (member === thisUserID) return;
+
+						dbRef.child('users').child(member).on("value",function(memberSnapshot){
+							var userData = {
+								friendID: member,
+								username: memberSnapshot.child('username').val(),
+								game: memberSnapshot.child('game').val(),
+								platform: memberSnapshot.child('platform').val(),
+								status: memberSnapshot.child('status').val(),
+								start: memberSnapshot.child('start').val(),
+								end: memberSnapshot.child('end').val()
+							};
+							addFriendStatusToDOM(userData,storageRef);
+						});
+					});
+				});
+
+				renderGroupCalls(dbRef,groupId,thisUserID);
+			}
+
+			function addGroupToDOM(groupData){
+
+				document.getElementById('lf-group-board').innerHTML = "";
+
+				var containerDiv = document.createElement('div');
+				containerDiv.classList.add('lf-post-container');
+
+				var statusDiv = document.createElement('div');
+				statusDiv.classList.add('group-status');
+
+				addProfilePictureToGroup(groupData.id, statusDiv);
+
+				var groupName = document.createElement('h4');
+				groupName.innerHTML = groupData.name;
+				statusDiv.append(groupName);
+
+				/*var accessTag = document.createElement('div');
+				accessTag.classList.add('lf-bottom-post-tag');
+				accessTag.style.marginRight = '5px';
+				var access = document.createElement('p');
+				access.innerHTML = groupData.access.toUpperCase();
+				accessTag.append(access);
+
+				statusDiv.prepend(accessTag);
+
+				var numMembersTag = document.createElement('div');
+				numMembersTag.classList.add('lf-bottom-post-tag');
+				var numMembers = document.createElement('p');
+				numMembers.innerHTML = groupData.numMembers + " MEMBERS";
+				numMembersTag.append(numMembers);
+
+				statusDiv.prepend(numMembersTag);*/
+
+				var leave = document.createElement('button');
+				leave.classList.add('btn');
+				leave.classList.add('btn-light');
+				leave.style.float = 'right';
+				leave.innerHTML = "Leave";
+				leave.onclick = function(){
+					dbRef.child('users').child(thisUserID).child('groups').child(groupData.id).remove();
+					dbRef.child('groups').child(groupData.id).child('members').child(thisUserID).remove();
+
+					alert("Left the group "+groupData.name+".");
+					loadGroups();
+				}
+
+				var invite = document.createElement('button');
+				invite.classList.add('btn');
+				invite.classList.add('btn-light');
+				invite.style.marginLeft = '5px';
+				invite.style.float = 'right';
+				invite.innerHTML = "Copy Invite";
+				invite.onclick = function(){
+					/*var inviteStr = window.location.href;
+					inviteStr = inviteStr.substring(0,inviteStr.indexOf("/groups.html"));
+					inviteStr += "/join_group.html#" + groupData.id;*/
+
+					var inviteStr = groupData.id;
+
+					var tempInput = document.createElement("input");
+					tempInput.value = inviteStr;
+					document.body.appendChild(tempInput);
+					tempInput.select();
+					document.execCommand("copy");
+					document.body.removeChild(tempInput);
+
+					console.log(inviteStr);
+					alert("Copied invite to clipboard.");
+					loadGroups();
+				}
+
+				statusDiv.append(invite);
+				statusDiv.append(leave);
+
+				statusDiv.onclick = function(){
+					statusDiv.style.backgroundColor = '#423996';
+					renderActiveGroup(groupData.id);
+				}
+
+				containerDiv.append(statusDiv);
+				document.getElementById('lf-group-board').appendChild(containerDiv);
+
+			}
+
+			function loadGroups(){
+				dbRef.child('users').child(thisUserID).child('groups').on('value',function(snapshot){
+					snapshot.forEach(function(grpId){
+						var groupId = grpId.key;
+						dbRef.child('groups').child(groupId).on('value',function(group){
+							var groupName = group.child('name').val();
+							var groupData = {
+								id: groupId,
+								name: groupName,
+								numMembers: group.child('members').numChildren(),
+								level: group.child('level').val(),
+								access: group.child('access').val()
+							};
+							addGroupToDOM(groupData);
+						});
+					});
+				});
+			}
+
+			// onload function
+			loadGroups();
+
+			function sendMessage(){
+				var text = document.getElementById('send-message-input').value;
+				if (text === ""){
+					alert("Cannot send empty message. Try again.");
+					return;
+				} else {
+					var currTime = Math.round((new Date()).getTime() / 1000);
+					var groupId = sessionStorage.getItem('groupid');
+
+					dbRef.child('groups').child(groupId).child('messages').push().set({
+						from: thisUserID,
+						fromUser: thisUserName,
+						text: text,
+						timestamp: currTime
+					});
+					document.getElementById('send-message-input').value = '';
+				}
+			}
+
+			function sendMessageByEnter(e){
+				if (e !== undefined && e.keyCode == 13){
+					sendMessage();
+					return false;
+				}
+			}
+		</script>
+	</body>
+
+</html>

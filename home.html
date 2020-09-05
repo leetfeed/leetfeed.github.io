@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Recursive">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="profile-styles.css">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+		<link href="images/logo-bg-removed.png" rel="icon" type="image/x-icon" />
+
+		<title>LeetFeed - Home</title>
+	</head>
+
+	<body>
+
+		<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-expand-xl|lg|md|sm">
+		  <a class="navbar-brand" href="#">LeetFeed</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="#">Feed<span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="profile.html">Profile</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="groups.html">Groups</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="messages.html">Messages</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" onclick="logOut()">Log Out</a>
+		      </li>
+		      
+		    </ul>
+		  </div>
+		</nav>-->
+
+		<div class="top-banner">
+			<img src="images/logo-bg-removed.png" width=70 height=70 />
+		</div>
+
+		<div class="vert-navbar">
+			<ul class="vert-navbar-ul">
+				<a href="#"><li><center>
+					<img src="images/home.png" width=40 height=40 />
+					<br>Home</center>
+				</li></a>
+				<a href="profile.html"><li><center>
+					<img src="images/profile.png" width=40 height=40 />
+					<br>Profile</center>
+				</li></a>
+				<a href="groups.html"><li><center>
+					<img src="images/groups.png" width=40 height=40 />
+					<br>Groups</center>
+				</li></a>
+				<a href="messages.html"><li><center>
+					<img src="images/messages.png" width=40 height=40 />
+					<br>Messages</center>
+				</li></a>
+				<a href="schedules.html"><li><center>
+					<img src="images/schedules.png" width=40 height=40 />
+					<br>Schedules</center>
+				</li></a>
+				<a href="settings.html"><li><center>
+					<img src="images/settings.png" width=40 height=40 />
+					<br>Settings</center>
+				</li></a>
+				<a onclick="logOut()"><li><center>
+					<img src="images/logout.svg" width=40 height=40 />
+					<br>Log Out</center>
+				</li></a>
+			</ul>
+		</div>
+
+		<div class="non-navbar-area">
+
+			<div class="pane left" id="testing">
+				<div class="pane-title"><h3>Testing</h3></div>
+
+				<br>
+
+				<form action="javascript:;" onsubmit="submitUserID(this)">
+					<label for="userid">User ID:</label>
+					<input type="text" id="userid" name="userid">
+					<input type="submit" value="Submit">
+				</form>
+
+				<br>
+
+				<form action="javascript:;" onsubmit="submitNewUser(this)">
+					<label for="username">New User:</label>
+					<input type="text" id="username" name="username">
+					<input type="submit" value="Submit">
+				</form>
+			</div>
+
+			<div class="overflow-auto pane middle" id="feed">
+
+				<div class="pane-title">
+					<h3>Posts
+					<button onclick="toggleNewPostMenu()" class="mdc-fab mdc-fab--extended" id="add-post-btn">
+						<div class="mdc-fab__ripple"></div>
+						<span class="material-icons mdc-fab__icon">add</span>
+						<span class="mdc-fab__label">Add Post</span>
+					</button>
+					</h3>
+				</div>
+
+				<div id="new-post-menu" style="display:none">
+					<div class="lf-post-container">
+						<div class="lf-post">
+							<br>
+							<input id="new-post-title" type="text" placeholder="Title"></input>
+
+							<br>
+							<input id="new-post-game" class="new-post-data" type="text" placeholder="Game"></input>
+							<input id="new-post-platform" class="new-post-data" type="text" placeholder="Platform"></input>
+
+							<hr>
+
+							<textarea id="new-post-body" rows="3" placeholder="Body Text"></textarea>
+
+							<br>
+
+							<button style="float:right;" onclick="uploadNewPost()" class="btn btn-light">Submit</button>
+							<button style="float:right;margin-right:5px;" onclick="closeNewPostMenu()" class="btn btn-light">Cancel</button>
+
+							<br><br>
+						</div>
+					</div>
+				</div>
+
+				<div id="lf-post-board">
+					<div class="lf-post-container">
+						<div class="lf-post">
+							<h2>Welcome to LeetFeed!</h2>
+
+							<hr>
+
+							<p style="font-family: 'Montserrat'">LeetFeed is an integrated gaming hub, with info created by gamers, for gamers. You can connect with other gamers here by posting highlights, joining parties, and sending messages. Enter your ID key at the left to start.</p>
+
+							<br>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="pane right" id="friends">
+				<div class="pane-title">
+					<h3>Friends
+					<button onclick="toggleNewFriendMenu()" class="mdc-fab mdc-fab--extended" id="add-friend-btn">
+						<div class="mdc-fab__ripple"></div>
+						<span class="material-icons mdc-fab__icon">add</span>
+						<span class="mdc-fab__label">Add Friend</span>
+					</button>
+					</h3>
+				</div>
+
+				<div id="new-friend-menu" style="display:none">
+					<div class="lf-post-container">
+						<div class="lf-post">
+							<br>
+
+							<input id="new-friend-username" type="text" placeholder="Friend Username"></input>
+
+							<br>
+
+							<button style="float:right;" onclick="uploadFriendRequest()" class="btn btn-light">Submit</button>
+							<button style="float:right;margin-right:5px;" onclick="closeNewFriendMenu()" class="btn btn-light">Cancel</button>
+
+							<br><br>
+						</div>
+					</div>
+				</div>
+
+				<div id="lf-status-board">
+				</div>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+		     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-storage.js"></script>
+
+		<script src="loadposts.js"></script>
+		<script src="loadprofile.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDX61EOAYNnGJoT19HD_F0kErwPa-YgrUY",
+				authDomain: "leet-feed.firebaseapp.com",
+				databaseURL: "https://leet-feed.firebaseio.com",
+				projectId: "leet-feed",
+				storageBucket: "leet-feed.appspot.com",
+				messagingSenderId: "382333298360",
+				appId: "1:382333298360:web:73ae197a7a54565336764d",
+				measurementId: "G-BYXL5FM7VM"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+
+			// initialize database
+			var dbRef = firebase.database().ref();
+
+			// initialize storage
+			var storageRef = firebase.storage().ref();
+
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					// User is signed in.
+
+					// clear testing pane, normal mode
+					document.getElementById("testing").innerHTML = "";
+					document.getElementById("testing").style.display = 'none';
+					document.getElementById("feed").style.width = '65%';
+					document.getElementById("friends").style.width = '35%';
+					sessionStorage.setItem('userid',user.uid);
+					//console.log(user.uid);
+					console.log("Stored user ID: "+sessionStorage.getItem('userid'));
+					renderPostsFor(user.uid, dbRef);
+					renderFriendActivityFor(user.uid, dbRef, storageRef);
+				} else {
+					// No user is signed in.
+
+					// testing mode, do nothing/wait for testing input...
+				}
+			});
+
+			// Render posts in feed
+			function submitUserID(form){
+				var uidInput = document.getElementById("userid").value;
+				console.log("Submitting user ID "+uidInput);
+				renderPostsFor(uidInput,dbRef);
+				renderFriendActivityFor(uidInput,dbRef,storageRef);
+				sessionStorage.setItem('userid', uidInput);
+				console.log("Stored user id: "+sessionStorage.getItem('userid'));
+				//window.location = 'home.html';
+				console.log('done');
+			}
+
+			function submitNewUser(form){
+				var usernameInput = document.getElementById("username").value;
+				console.log("Submitting user ID "+usernameInput);
+				var newUserRef = dbRef.child("users").push();
+				newUserRef.set({
+					'username': usernameInput,
+					'friends': {},
+				});
+				newUserID = newUserRef.toString();
+				newUserID = newUserID.substr(newUserID.lastIndexOf('/')+1);
+				//renderPostsFor(newUserID,dbRef);
+				//window.location = 'home.html';
+			}
+
+			function loadProfileFromUserID(){
+				var usernameInput = document.getElementById("userid").value;
+				renderProfileFor(usernameInput, dbRef);
+				//window.location = 'profile.html';
+			}
+
+			function openNewPostMenu(){
+				document.getElementById("new-post-menu").style.display = "block";
+			}
+
+			function toggleNewPostMenu(){
+				if (document.getElementById("new-post-menu").style.display === "none"){
+					document.getElementById("new-post-menu").style.display = "block";
+				} else {
+					document.getElementById("new-post-menu").style.display = "none";
+				}
+			}
+
+			function closeNewPostMenu(){
+				document.getElementById("new-post-menu").style.display = "none";
+			}
+
+			function openNewFriendMenu(){
+				document.getElementById("new-friend-menu").style.display = "block";
+			}
+
+			function toggleNewFriendMenu(){
+				if (document.getElementById("new-friend-menu").style.display === "none"){
+					document.getElementById("new-friend-menu").style.display = "block";
+				} else {
+					document.getElementById("new-friend-menu").style.display = "none";
+				}
+			}
+
+			function closeNewFriendMenu(){
+				document.getElementById("new-friend-menu").style.display = "none";
+			}
+
+			function uploadFriendRequest(){
+				var username = document.getElementById("new-friend-username").value;
+
+				if (username === ""){
+					alert("Friend's username missing, cannot make request.");
+					return;
+				}
+
+				var user = firebase.auth().currentUser;
+				var thisUserID = "";
+				if (user){
+					thisUserID = user.uid;
+				} else {
+					thisUserID = document.getElementById("userid").value;
+				}
+
+				dbRef.child('usernames').child(username).once('value', function(snapshot) {
+					var friendID = snapshot.val();
+					if (friendID !== null){
+						dbRef.child('users').child(friendID).child('friends').once('value', function(friendSnapshot) {
+							if (friendSnapshot.hasChild(thisUserID)){
+								alert("You are already friends with "+username+".");
+								return;
+							} else if (friendSnapshot.child('inrequests').hasChild(thisUserID)){
+								alert("You have already requested to be friends with "+username+".");
+								return;
+							} else {
+								dbRef.child('users').child(friendID).child('friends/inrequests').child(thisUserID).set("");
+								dbRef.child('users').child(thisUserID).child('friends/outrequests').child(friendID).set("");
+								alert("Successfully requested "+username+" as a friend.");
+								document.getElementById("new-friend-username").value = "";
+								closeNewFriendMenu();
+								renderFriendActivityFor(thisUserID, dbRef, storageRef);
+							}
+						});
+					} else {
+						alert("No user exists with this username, cannot make request.");
+						return;
+					}
+				});
+			}
+
+			function uploadNewPost(){
+				var title = document.getElementById("new-post-title").value;
+				var body = document.getElementById("new-post-body").value;
+				var game = document.getElementById("new-post-game").value;
+				var platform = document.getElementById("new-post-platform").value;
+
+				if (title === ""){
+					alert("Post title missing, cannot make new post");
+					return;
+				} else if (body === ""){
+					alert("Body text missing, cannot make new post");
+					return;
+				}
+
+				var user = firebase.auth().currentUser;
+				var uidInput = document.getElementById("userid").value;
+
+				var currTime = Math.round((new Date()).getTime() / 1000);
+
+				var uid = (user) ? user.uid : uidInput;
+
+				// TODO add functionality for access, likes, tags, type
+				var postRef = dbRef.child("posts").push();
+				postRef.set({
+					access: "public",
+					body: body,
+					game: game,
+					likes: 0,
+					platform: platform,
+					postedby: uid,
+					timestamp: currTime,
+					title: title,
+					type: "text post"
+				});
+
+				dbRef.child('users').child(uid).child('posts').child(postRef.key).set("");
+
+				alert("New post successfully made");
+				closeNewPostMenu();
+				renderPostsFor(thisUserID, dbRef);
+			}
+
+			function logOut(){
+				firebase.auth().signOut().then(function() {
+					// Sign-out successful.
+					window.location = 'index.html';
+				}, function(error) {
+					// An error happened.
+					alert("Log out failed.");
+				});
+			}
+		</script>
+	</body>
+
+</html>

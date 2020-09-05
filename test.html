@@ -1,0 +1,84 @@
+<head>
+	<title>Test Landing Page</title>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<form action="javascript:;" onsubmit="submitUserID(this)">
+		<label for="userid">User ID:</label>
+		<input type="text" id="userid" name="userid">
+		<input type="submit" value="Submit">
+	</form>
+
+	<br><br>
+
+	<form action="javascript:;" onsubmit="submitNewUser(this)">
+		<label for="username">Username for New User:</label>
+		<input type="text" id="username" name="username">
+		<input type="submit" value="Submit">
+	</form>
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+
+	<script src="loadposts.js"></script>
+
+	<script>
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+	    apiKey: "AIzaSyDX61EOAYNnGJoT19HD_F0kErwPa-YgrUY",
+	    authDomain: "leet-feed.firebaseapp.com",
+	    databaseURL: "https://leet-feed.firebaseio.com",
+	    projectId: "leet-feed",
+	    storageBucket: "leet-feed.appspot.com",
+	    messagingSenderId: "382333298360",
+	    appId: "1:382333298360:web:73ae197a7a54565336764d",
+	    measurementId: "G-BYXL5FM7VM"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+
+	  console.log(firebase);
+
+	  firebase.analytics();
+	  var dbRef = firebase.database().ref();
+
+	  dbRef.child("posts").once("value", function(snapshot) {
+			snapshot.forEach(function(post) {
+				console.log(post);
+			});
+		});
+
+	  function submitUserID(form){
+	  	var uidInput = document.getElementById("userid").value;
+	  	console.log("Submitting user ID "+uidInput);
+	  	renderPostsFor(uidInput,dbRef);
+	  	window.location = 'home.html';
+	  	console.log('done');
+	  }
+
+	  function submitNewUser(form){
+	  	var usernameInput = document.getElementById("username").value;
+	  	console.log("Submitting user ID "+usernameInput);
+	  	var newUserRef = dbRef.child("users").push();
+	  	newUserRef.set({
+	  		'username': usernameInput,
+	  		'friends': {},
+	  		'posts': {},
+	  		'groups': {}
+	  	});
+	  	newUserID = newUserRef.toString();
+	  	newUserID = newUserID.substr(newUserID.lastIndexOf('/')+1);
+	  	renderPostsFor(newUserID,dbRef);
+	  	window.location = 'home.html';
+	  }
+	</script>
+
+</body>

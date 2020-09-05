@@ -1,0 +1,215 @@
+.pane-title {
+	font-family: 'Roboto Mono', serif;
+	font-size: 20px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid black;
+}
+
+.platform-tag-container {
+	overflow: scroll;
+	height: 32px;
+	padding-left: 5px;
+	display: inline-block;
+	float: right;
+}
+
+.platform-tag {
+	transform: skew(-12deg);
+	width: 27px;
+	height: 27px;
+	float: right;
+	/*border-radius: 8px;*/
+}
+
+.platform-tag img {
+	/*transform: skew(12deg);*/
+	width: 100%;
+	height: 100%;
+	/*border-radius: 8px;*/
+}
+
+.profile-game-tag {
+	background-color: orange;
+	font-weight: bold;
+	/*transform: skew(-12deg);*/
+	font-family: 'Roboto Condensed', serif;
+	display: inline-block;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 1px;
+	margin-right: 5px;
+	margin-bottom: 4px;
+	border-radius: 2px;
+	color: black;
+}
+
+.profile-game-tag p {
+	/*transform: skew(12deg);*/
+	font-size: 18px;
+}
+
+.profile-card-container {
+	padding: 6px;
+	background-color: white;
+}
+
+.profile-card {
+	width: 100%;
+	padding: 10px;
+	border-radius: 3px;
+	position: relative;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-color: #100859;
+	color: lemonchiffon;
+	display: block;
+	overflow: auto;
+}
+
+.profile-card hr {
+	width: 100%;
+	color: lemonchiffon;
+}
+
+#edit-status-btn, #edit-profile-btn {
+	float: right;
+}
+
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	margin-top: 10px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	left: 4px;
+	bottom: 2px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: lime;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px lime;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 25px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.pfp-img {
+	float: left;
+	display: inline-block;
+	width: 86px;
+	height: 86px;
+	/*margin: 0 auto;*/
+	margin-top: 3px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	border-radius: 50%;
+	border: 4px solid lemonchiffon;
+	/*border-image: linear-gradient(to right, white, lemonchiffon);
+    border-image-slice: 1;*/
+}
+
+#edit-profile-bio {
+	font-family: 'Montserrat';
+	font-size: 18px;
+	border-radius: 2px;
+	width: 100%;
+	border: none;
+	background-image: linear-gradient(white, lemonchiffon);
+}
+
+#pfp-drop-zone {
+	/*border: 5px solid blue;*/
+	background-color: lemonchiffon;
+	border-radius: 2px;
+	margin: 0 auto;
+	color: orange;
+	font-family: 'Roboto Condensed';
+	width: 100%;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#pfp-drop-zone p {
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+#game-tag-board {
+	width: 70%;
+	padding-top: 5px;
+	padding-left: 5px;
+	/*padding-bottom: 5px;*/
+	background-image: linear-gradient(white, lemonchiffon);
+	border-radius: 2px;
+	display: block;
+	overflow: auto;
+	margin-bottom: 5px;
+}
+
+#platform-tag-board {
+	width: 70%;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	background-image: linear-gradient(white, lemonchiffon);
+	border-radius: 2px;
+	display: block;
+	overflow: auto;
+	margin-bottom: 5px;
+}
+
+hr {
+	height: 1px;
+	background-color: lemonchiffon;
+	border: none;
+	margin-top: 1px;
+}

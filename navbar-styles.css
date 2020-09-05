@@ -1,0 +1,28 @@
+.vert-navbar {
+	height: 100%;
+	background-color: #aaa;
+	display: inline-block;
+	position: absolute;
+}
+
+.vert-navbar-ul {
+	list-style-type: none;
+	padding-top: 10px;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.vert-navbar-ul li {
+	width: 100px;
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid black;
+	font-family: 'Roboto Mono';
+}
+
+.vert-navbar-ul li:hover {
+	background-color: #ddd;
+}
